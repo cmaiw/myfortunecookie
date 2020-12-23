@@ -1,4 +1,4 @@
-## Welcome to "myFortunecookie" <img src="https://github.com/cmaiw/myfortunecookie/blob/styling-and-animation/public/images/fortunecookie.png" align="right" width="200">
+## Welcome to "myFortunecookie" <img src="https://github.com/cmaiw/myfortunecookie/blob/main/public/images/fortunecookie.png" width="200">
 
 myFortunecookiy is a cute, full responsive web application with animations. It allows you to crack a fortune-cookie and receive an advice. Try it out with your friends and have fun!
 
