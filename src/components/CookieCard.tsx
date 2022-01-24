@@ -74,7 +74,6 @@ const CookieWrapper = styled.div`
     align-items: center;
     width: 100%;
     height: auto;
-    transition: opacity 1.5s ease-in-out;
   `
   
   const Advice = styled.div`
@@ -176,30 +175,43 @@ export interface CookieCardProps {
 function CookieCard() {
 
     const [advice, setAdvice] = React.useState('')
-    const [isNotBroken, setIsBroken] = React.useState(true)
-    const onCrackCookie  = () => { setIsBroken(!isNotBroken) }
-    const handleNextCookie = () => {setIsBroken(!isNotBroken); getAdvice()}
+    const [isNotBroken, setIsNotBroken] = React.useState(true)
     async function getAdvice() {
-        const response = await fetch(`https://api.adviceslip.com/advice`)
-        const data = await response.json()
-        setAdvice(data.slip.advice)
-      };
-
+      const response = await fetch(`https://api.adviceslip.com/advice`)
+      const data = await response.json()
+      return data.slip.advice
+    };
     React.useEffect(() => {
-      getAdvice();
+      
+      async function refreshAdvice() {
+        const nextAdvice = await getAdvice();
+        setAdvice(nextAdvice);
+      };
+      if(isNotBroken) refreshAdvice();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [advice, setAdvice])
+    }, [advice, isNotBroken]);
 
+    const onCrackCookie  = () => {
+      setIsNotBroken(false);
+    };
+    const handleNextCookie = () => {
+      setIsNotBroken(true);
+      if(window.navigator.userAgent.toLowerCase().includes('firefox')) window.location.reload();
+    };
 
       return (
         <CookieWrapper>
-            {isNotBroken ? (<CookieBtn onClick={onCrackCookie}>
+            {isNotBroken 
+            ? (<CookieBtn onClick={onCrackCookie}>
                  <FortuneCookie src="images/fortunecookie.png" alt="fortune-cookie"/>
-                 </CookieBtn>) :
-                <CookieBroken src="images/fortunecookie_broken.png" alt="broken-cookie"/>}
-                    {!isNotBroken ? <Advice>{!isNotBroken 
-                    ? (<NextCookieBtn onClick={handleNextCookie}>Try again?</NextCookieBtn>) 
-                    : (<NextCookieBtnPlaceholder />)}{advice}</Advice> : <AdvicePlaceholder />}
+                 </CookieBtn>) 
+            : <CookieBroken src="images/fortunecookie_broken.png" alt="broken-cookie"/>}
+                    {!isNotBroken 
+                    ? <Advice>
+                      {!isNotBroken 
+                        ? (<NextCookieBtn onClick={handleNextCookie}>Try again?</NextCookieBtn>) 
+                        : (<NextCookieBtnPlaceholder />)}{advice}</Advice> : <AdvicePlaceholder />
+                      }
         </CookieWrapper>
       )
 }
