@@ -2,7 +2,7 @@
 
 myFortunecookiy is a cute, full responsive web application with animations. It allows you to crack a fortune-cookie and receive an advice. Try it out with your friends and have fun!
 
-<div>myFortunecookie live: <a href="https://myfortunecookie.herokuapp.com/" title="myFortunecookie">https://myfortunecookie.herokuapp.com/</a></div>
+<div>myFortunecookie live: <a href="https://my-fortune-cookie.netlify.app/" title="myFortunecookie">https://my-fortune-cookie.netlify.app/</a></div>
 
 ## credits for free pictures:
 
